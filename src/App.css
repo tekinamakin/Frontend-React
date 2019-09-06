@@ -1,0 +1,299 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.card{
+  height: 400px;
+  /* border: 0.5px solid rgb(122, 121, 121); */
+  width: 50%;
+  margin-top: 100px;
+  margin-left: 338px;
+  border: 1px solid transparent;
+}
+
+
+.logincard{
+  height: 500px;
+  /* border: 0.5px solid rgb(122, 121, 121); */
+  width: 30%;
+  margin-top: 100px;
+  margin-left: 481px;
+  border: 1px solid transparent;
+ 
+}
+.nametexfields {
+  display: flex;
+  justify-content: space-evenly
+}
+
+
+.first-name-input{
+  display: flex;
+  justify-content: space-evenly
+}
+.email-text{
+  width: 65%;
+  margin-left: 120px;
+}
+.fundoo-f{
+  color: blue
+}
+.fundoo-u{
+  color: red
+}
+.fundoo-n{
+  color: rgb(219, 219, 28)
+}
+.fundoo-d{
+  color: blue
+}
+.fundoo-o1{
+  color: green
+}
+.fundoo-o{
+  color: red
+}
+
+.fundoo-title{
+  font: normal bold 30px/50px Georgia, serif
+  
+}
+
+  
+/*--------------------app bar ---------------------------------------------------------*/
+.app-bar{
+
+  width: '100%'
+}
+
+.menu-button{
+  margin-left: -12;
+  margin-right: 20;
+}
+
+.title{
+
+  color:rgb(129, 124, 124)
+  
+
+}
+.fundoo-image-text{
+  display: flex;
+  justify-content: flex-start;
+  width: 23%;
+}
+.fundoo-name{
+  margin-top: 10%;
+  color: #282c34;
+
+}
+.title {
+  padding-top: 12px;
+  font-size: 22px;
+}
+.searchIcon{
+  display: flex;
+  justify-content: flex-start;
+  width: 40%;
+  color: gray;
+}
+
+.profileIcon{
+margin-left: 300px;
+}
+
+.noteView{
+margin-left: 30px
+
+}
+
+/* .search{
+  display: flex;
+  position: static;
+  background-color: rgb(240, 230, 230);
+  width: 630px;
+  height: 46px;
+  margin-left: 2%;
+  border-radius: 18px;
+  align-items: center;
+  margin-top: 3px;
+}
+.searchInput{
+  margin-left: 10%;
+}
+#searchInputBase {
+  width : 442px;
+} */
+.search{
+
+  display: flex;
+  justify-content: center;
+  position: static;
+  background-color: rgb(230, 219, 219);
+  width: 600px;
+  height: 46px;
+  margin-left: 2%;
+  border-radius: 18px;
+  align-items: center;
+  margin-top: 3px;
+}
+.searchInput{
+  margin-left: 2%;
+}
+#searchInputBase {
+  width : 442px;
+}
+/*-------------------------------------Create Note-----------------------------------------------------*/
+.createnote-card{
+  height: 46px;
+  border: 1px solid transparent;
+  width: 40%;
+  margin-top: 100px;
+  margin-left: 338px;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+}
+
+.take-note-input{
+color:rgb(129, 124, 124)
+  
+}
+
+.closeButton{
+  margin-left:460px
+}
+
+
+
+/*******************************************forgot passwprd***************************************************/
+.Lcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 52%;
+  margin-left: 24%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.forgot {
+  color: #282c34;
+  font-size: xx-large
+}
+
+.email {
+  margin-right: -104%;
+  width: 60%;
+}
+
+.passworrd {
+  /* margin-right: -104%; */
+  width: 60%;
+}
+
+.ser_bt {
+  display: flex;
+
+  flex-direction:row;
+    flex-wrap:wrap;
+}
+
+/***************************************getAllNote component***************************************/
+
+
+.getAllNote{
+display:flex;
+justify-content: center;
+flex-direction:row;
+align-items: center;
+width: 120%
+
+}
+
+.getAllNoteList{
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  width:"100%";
+  align-items: center;
+  
+}
+
+.noteCard{
+  display: flex;
+  text-align: start;
+  justify-content: center; 
+  height:grow;
+  width:230px;
+  order:0;
+  flex-grow:0;
+  flex-shrink:1;
+  margin-top: 3%;
+  margin: 60px;
+  box-shadow: 10px 10px 10px grey;
+  flex-direction: column;
+  
+  } 
+  .noteCardList{
+    display: flex;
+    text-align: start;
+    justify-content: center; 
+    height:grow;
+    width:600px;
+    order:0;
+    flex-grow:0;
+    flex-shrink:1;
+    margin-top: 3%;
+    flex-direction: column;
+    box-shadow: 10px 10px 10px grey;
+
+  }
+
+  
+  .cardContent{
+
+    text-align: left;
+  }
+
+  .flex-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    /* background-color: DodgerBlue; */
+  }
+  
+  .flex-container > div {
+    background-color: #f1f1f1;
+    margin:7.5px;
+    text-align: center;
+    align-items: center;
+
+  }
+
+  .flex-container img{
+height:20px;
+width:20px;
+  
+  }
