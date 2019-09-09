@@ -4,16 +4,7 @@ const token=localStorage.getItem('token')
 //const baseUrl = "http://localhost:7777"
 //used to send registered data to server
 
-export function getAllNotes(){
-console.log("token===>"+token);
 
-return axios.get('http://localhost:7777/getAllNotes',{
-    headers : {
-            "token" : token
-        }
-})
-
-}
 
 
 export function createNote(title,description){
@@ -59,3 +50,27 @@ export function trashNote(data){
     }
     })
 }
+
+export function getAllNotes(){
+    console.log("token===>"+token);
+    
+    return axios.get('http://localhost:7777/getAllNotes',{
+        headers : {
+                "token" : token
+            }
+    })
+    
+    }
+
+export function updateNote(data){
+    
+return axios.post("http://localhost:7777/editTitle",data,{
+    headers : {
+        "token" : token
+    }
+}
+    )
+}
+
+
+

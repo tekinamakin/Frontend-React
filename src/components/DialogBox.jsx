@@ -101,7 +101,7 @@ class DialogBox extends React.Component {
      );
      
 	var 	noteDeldata ={ 
-	'noteID':this.props.note_id
+  'noteID':this.props.note_id,
 	}	
      trashNote(noteDeldata)
     .then((response) => {
@@ -121,6 +121,7 @@ class DialogBox extends React.Component {
  }
 
   render() {
+    
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 

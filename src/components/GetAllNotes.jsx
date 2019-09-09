@@ -9,14 +9,18 @@ class GetAllNotes extends Component {
         super(props)
         
         this.state={
-            isLoaded:false,
+            
             notes:[],
             h1Data:[]    
         }
     }
- async   componentDidMount (){
+    componentDidMount (){
+        this.getAllNoteData()
      //await   fetch("http://localhost:7777/getAllNotes",{header:{"token":token}})
-  await getAllNotes()
+    }
+
+    getAllNoteData=(event)=>{
+        getAllNotes()
         .then(res=> {
         console.log(res);
         this.setState({
@@ -38,9 +42,13 @@ class GetAllNotes extends Component {
         // });
     
     }
+    
+   
     render() {
         const list=this.props.layout? "getAllNote" : "getAllNoteList"
+
         console.log("DATA in STATE", this.state.h1Data)
+
         const datamap = this.state.h1Data.map((note)=>{
             console.log("========================>",note);
             
@@ -50,7 +58,7 @@ class GetAllNotes extends Component {
             //         <h5>{key.createdAt}</h5>
             // </div> 
             return (
-                    <NoteCard layout={this.props.layout} key={note._id} noteData={note}/>
+                    <NoteCard getAllNoteData={this.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note}/>
             )
         })
         // var {isLoaded,notes} = this.state

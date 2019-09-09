@@ -252,7 +252,7 @@ width: 120%
   flex-shrink:1;
   margin-top: 3%;
   margin: 60px;
-  box-shadow: 10px 10px 10px grey;
+  box-shadow: 3px 5px 10px grey;
   flex-direction: column;
   
   } 
@@ -285,7 +285,7 @@ width: 120%
   }
   
   .flex-container > div {
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
     margin:7.5px;
     text-align: center;
     align-items: center;

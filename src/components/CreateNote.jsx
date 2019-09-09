@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import { CardContent, InputBase, CardActions, Button } from '@material-ui/core';
+import { CardContent, InputBase, CardActions, Button, Dialog } from '@material-ui/core';
 import { createNote } from "../Services/userServices";
 import DialogBox from './DialogBox'
 class CreateNote extends Component {
@@ -84,7 +84,9 @@ class CreateNote extends Component {
     
 
     render() {
+       
         return (
+            
             <div>
                 <Card className="createnote-card" style={{ display: this.state.noteEdit }}>
                     <CardContent>
@@ -132,8 +134,9 @@ class CreateNote extends Component {
                         
                     </CardActions>
                 </Card>
-            
-            </div>
+
+               
+                </div>
         );
     }
 }
