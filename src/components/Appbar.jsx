@@ -20,7 +20,8 @@ class PrimarySearchAppBar extends React.Component {
             open: '',
             searchInput: '',
             listView: false,
-            openDrawer: false           
+            openDrawer: false,
+                       
         }
         this.searchInputHandler = this.searchInputHandler.bind(this)
         this.handleCloseSearch = this.handleCloseSearch.bind(this)
@@ -55,70 +56,70 @@ class PrimarySearchAppBar extends React.Component {
         if(this.state.listView){
             viewIcon = ListIcon
         }
-        return (    
-            <div className="app-bar">
-                <AppBar position="fixed" color="default">
-                    <Toolbar>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <div className="fundoo-image-text">
-                            <div>
-                                <img src={require('../assets/images/keep.png')} alt="" />
-                            </div>
-                            <div className="title" variant="h6" color="initial" nowrap="true">
-                                FundooNotes
-                             </div>
+return (    
+    <div className="app-bar">
+        <AppBar position="fixed" color="default">
+            <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="Open drawer"
+                    onClick={this.handleDrawerOpen}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <div className="fundoo-image-text">
+                    <div>
+                        <img src={require('../assets/images/keep.png')} alt="" />
+                    </div>
+                    <div className="title" variant="h6" color="initial" nowrap="true">
+                        FundooNotes
                         </div>
-                        <div className="search">
-                            <div className="search-icon">
-                                <SearchIcon />
-                            </div>
-                            <div className="searchInput">
-                                <InputBase
-                                    placeholder='Search'
-                                    value={this.state.searchInput}
-                                    onChange={this.searchInputHandler}
-                                    id="searchInputBase"
-                                />
-                            </div>
-                            <div>
-                                <IconButton>
-                                    <Tooltip title="Close Search" >
-                                        <CloseSearch onClick={this.handleCloseSearch} />
-                                    </Tooltip>
-                                </IconButton>
-                            </div>
+                </div>
+                <div className="search">
+                    <div className="search-icon">
+                        <SearchIcon />
+                    </div>
+                    <div className="searchInput">
+                        <InputBase
+                            placeholder='Search'
+                            value={this.state.searchInput}
+                            onChange={this.searchInputHandler}
+                            id="searchInputBase"
+                        />
+                    </div>
+                    <div>
+                        <IconButton>
+                            <Tooltip title="Close Search" >
+                                <CloseSearch onClick={this.handleCloseSearch} />
+                            </Tooltip>
+                        </IconButton>
+                    </div>
 
-                            </div>
-                            <div className="noteView">
-                            {/* {
-                                this.state.showMe
-                                ? <div onClick={this.handleView}><img style={{height:20,width:20}}     src={require("../assets/images/listview.svg")} alt="list"/></div> 
-                                : <div onClick={this.handleView}><img src={require("../assets/images/gridview.svg")} alt="grid"/></div>
-                              
-                            } */}
-                            <img style={{height:20,width:20}} onClick={this.handleView} src={viewIcon} alt="list"/>
-                            </div>
-                          <div  className="profileIcon">
-                            <IconButton color="default">
-                                <AccountCircle onClick={this.handleProfileMenuOpen} />
-                            </IconButton>
-                            </div>
-                            
+                    </div>
+                    <div className="noteView">
+                    {/* {
+                        this.state.showMe
+                        ? <div onClick={this.handleView}><img style={{height:20,width:20}}     src={require("../assets/images/listview.svg")} alt="list"/></div> 
+                        : <div onClick={this.handleView}><img src={require("../assets/images/gridview.svg")} alt="grid"/></div>
+                        
+                    } */}
+                    <img style={{height:20,width:20}} onClick={this.handleView} src={viewIcon} alt="list"/>
+                    </div>
+                    <div  className="profileIcon">
+                    <IconButton color="default">
+                        <AccountCircle onClick={this.handleProfileMenuOpen} />
+                    </IconButton>
+                    </div>
+                    
 
-                    </Toolbar>
-                </AppBar>
-                <PersistentDrawerLeft
-                    open={this.state.openDrawer}
-                />
+            </Toolbar>
+        </AppBar>
+        <PersistentDrawerLeft
+            open={this.state.openDrawer}
+        />
 
 
-            </div>
+    </div>
         );
     }
 }

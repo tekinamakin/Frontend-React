@@ -7,6 +7,7 @@ class ColorPalette extends Component {
         super();
  
         this.state={
+
             menuOpen:false,
             anchorEl:null,
             colors:[
@@ -36,18 +37,16 @@ class ColorPalette extends Component {
     }
     changeColor=(e)=>{
 
-        this.setState({
+        // this.setState({
 
-            color:e.target.id
-        })
+        //     color:e.target.id
+        // })
 
         this.props.noteColor(e.target.id);
         this.handleMenuClose()
         
         console.log("++++++",e.target.id);
         
-
-
     }
 
     handleMenuClose=(event)=>{
@@ -57,7 +56,7 @@ class ColorPalette extends Component {
             anchorEl:null
         })
     }
-
+    //'noteID':this.props.note_id
 
 
 
@@ -84,10 +83,10 @@ class ColorPalette extends Component {
         })
         return (
             <div>
-                 <img 
-                 src={require("../assets/images/colorPallete.svg")} 
-                 alt="colorPallete"
-                 onClick={this.handleMenu}/>
+                    <img 
+                    src={require("../assets/images/colorPallete.svg")} 
+                    alt="colorPallete"
+                    onClick={this.handleMenu}/>
                 <Menu id="ColorMenu" onClose={this.handleMenuClose} anchorEl={this.state.anchorEl} open={this.state.menuOpen}>
                 <Grid 
                 container
@@ -96,7 +95,7 @@ class ColorPalette extends Component {
                 {colorSet}
 
                 </Grid>
-              
+                
                 </Menu>
             </div>
         );

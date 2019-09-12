@@ -107,12 +107,10 @@ class DialogBox extends React.Component {
     .then((response) => {
       
       console.log('response===>',response);
-      // this.setState({
-      //     openSnackBar: true,
-      //     snackBarMessage: "Note trashed "
-      // });
+
            console.log("note trashed");
-           this.handleClose()
+           this.handleClose();
+           this.props.noteData()
                        })
   .catch((err) => {
       console.log('error===>',err);

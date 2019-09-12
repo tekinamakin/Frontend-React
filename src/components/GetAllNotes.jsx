@@ -28,19 +28,8 @@ class GetAllNotes extends Component {
         })
         })
         .catch(error=>{
-            console.log(error.response.data)
-        })
-        
-        // .then(json=>{
-        //     console.log(json.data.data.data);
-            
-        //     this.setState({
-        //         isLoaded:true,
-        //         notes:json
-        //     })
-
-        // });
-    
+            console.log(error)
+        })    
     }
     
    
@@ -49,28 +38,16 @@ class GetAllNotes extends Component {
 
         console.log("DATA in STATE", this.state.h1Data)
 
-        const datamap = this.state.h1Data.map((note)=>{
+        const datamap = this.state.h1Data.map(note=>{
             console.log("========================>",note);
-            
-            // return <div style={{background:"red"}} key={key._id} >
-            //         <h2>{key.title}</h2>
-            //         <h4>{key.description}</h4>
-            //         <h5>{key.createdAt}</h5>
-            // </div> 
+           
             return (
                     <NoteCard getAllNoteData={this.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note}/>
             )
         })
-        // var {isLoaded,notes} = this.state
-
-        // if(!isLoaded)
-        //     return <div>Loading...</div>
-        
-
-        //testing getallnotes api on webpage 
-// else
+      
         return (
-            <Grid container className={list}>
+            <Grid container className={list} style={{width:"70%", marginLeft:"15%"}}>
                 {datamap}
                 </Grid>
                 

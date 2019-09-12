@@ -1,11 +1,8 @@
 
 import axios from 'axios';
+
+const baseUrl= require('../config/key').baseUrl
 const token=localStorage.getItem('token')
-//const baseUrl = "http://localhost:7777"
-//used to send registered data to server
-
-
-
 
 export function createNote(title,description){
     console.log("data in service"+title);
@@ -14,7 +11,7 @@ export function createNote(title,description){
         description:description
     }
     
-    return axios.post('http://localhost:7777/createnote',createNoteData,{
+    return axios.post(baseUrl+'createnote',createNoteData,{
         headers : {
             "token" : token
         }
@@ -24,26 +21,26 @@ export function createNote(title,description){
 
 
 export function userRegister(data) {
-    return axios.post(`http://localhost:7777/register`,data);
+    return axios.post(baseUrl+`register`,data);
 }
 //send login data to server
 
 export function userLogin(data) {
     console.log("data in service  ===>",data);
     
-    return axios.post('http://localhost:7777/login', data);
+    return axios.post(baseUrl+'login', data);
 }
 
 export function userForgot(data) {
     console.log("data in service  ===>",data);
     
-    return axios.post('http://localhost:7777/forgetPassword', data);
+    return axios.post(baseUrl+'forgetPassword', data);
 }
 
 export function trashNote(data){
     console.log("token in trashNote frontend service"+token);
     
-    return axios.post('http://localhost:7777/deletenote',data,{
+    return axios.post(baseUrl+'deletenote',data,{
     headers:{
     
         "token":token
@@ -51,10 +48,11 @@ export function trashNote(data){
     })
 }
 
-export function getAllNotes(){
+export function 
+getAllNotes(){
     console.log("token===>"+token);
     
-    return axios.get('http://localhost:7777/getAllNotes',{
+    return axios.get(baseUrl+'getAllNotes',{
         headers : {
                 "token" : token
             }
@@ -64,13 +62,25 @@ export function getAllNotes(){
 
 export function updateNote(data){
     
-return axios.post("http://localhost:7777/editTitle",data,{
+return axios.post(baseUrl+"editTitle",data,{
     headers : {
         "token" : token
     }
 }
     )
 }
+
+export function getAllTrashedNotes(){
+
+    return axios.get(baseUrl+'getAllTrashed',{
+        headers : {
+                "token" : token
+            }
+    })
+    
+
+}
+
 
 
 

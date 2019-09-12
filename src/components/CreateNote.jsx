@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import { CardContent, InputBase, CardActions, Button, Dialog } from '@material-ui/core';
+import { CardContent, InputBase, CardActions, Button } from '@material-ui/core';
 import { createNote } from "../Services/userServices";
 import DialogBox from './DialogBox'
 class CreateNote extends Component {
@@ -19,7 +19,7 @@ class CreateNote extends Component {
             openD:""
         }
         this.handleNoteExpand = this.handleNoteExpand.bind(this)
-        this.handleLogin=this.handleLogin.bind(this)
+        this.createNoteData=this.createNoteData.bind(this)
     }
 
     async openDialog(){
@@ -53,7 +53,13 @@ class CreateNote extends Component {
         })
     }
 
-    handleLogin() {
+    componentDidMount(){
+      
+        this.createNoteData()
+
+    }
+
+    createNoteData() {
        
             // var data = {
                 
@@ -65,11 +71,13 @@ class CreateNote extends Component {
                 noteEdit:"block",
                 noteEditExpand:"none"
             })
+        
             console.log("create note", this.state.title)
             createNote(this.state.title,this.state.description)                    
             .then((response) => {
                 console.log('response===>',response.data);
                 console.log("properties",this.props)
+                
              
 
                 // this.props.history.push('/register');
@@ -129,7 +137,7 @@ class CreateNote extends Component {
                     openD={this.state.open}
                     />
                     <Button className="closeButton" style={{ marginLeft: 200}}
-                        onClick={this.handleLogin}>Close</Button>
+                        onClick={this.createNoteData}>Close</Button>
                     </div>
                         
                     </CardActions>
