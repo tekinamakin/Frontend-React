@@ -20,7 +20,10 @@ class NoteCard extends Component {
             title: props.noteData.title,
             description: props.noteData.description,
             noteData: props.getAllNoteData,
-            reminder: props.noteData.reminder
+            reminder: props.noteData.reminder,
+            trashedNotesData:props.getTrashedNotes,
+            archive:false
+
 
 
         }
@@ -192,11 +195,11 @@ class NoteCard extends Component {
                     </CardContent>
                     <CardActions >
                         <div className="flex-container">
-                            <div ><ReminderComponent note_id={this.props.noteData._id} noteData={this.state.noteData}  /></div>
+                            <div ><ReminderComponent note_id={this.props.noteData._id} noteData={this.props.noteData}  /></div>
                             <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
                             <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
                             <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
-                            <div><img src={require("../assets/images/archive.svg")} alt="archive" /></div>
+                            <div><img  src={require("../assets/images/archive.svg")} alt="archive" /></div>
                             <DialogBox onClick={this.openDialog} note_id={this.props.noteData._id}
                                 noteData={this.state.noteData} openD={this.state.open}
                             />

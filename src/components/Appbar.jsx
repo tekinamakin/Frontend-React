@@ -21,6 +21,7 @@ class PrimarySearchAppBar extends React.Component {
             searchInput: '',
             listView: false,
             openDrawer: false,
+            
                        
         }
         this.searchInputHandler = this.searchInputHandler.bind(this)
@@ -115,6 +116,7 @@ return (
             </Toolbar>
         </AppBar>
         <PersistentDrawerLeft
+           getTrashedNotes={this.props.getTrashedNotes}
             open={this.state.openDrawer}
         />
 

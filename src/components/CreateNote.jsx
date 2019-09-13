@@ -53,13 +53,9 @@ class CreateNote extends Component {
         })
     }
 
-    componentDidMount(){
-      
-        this.createNoteData()
+   
 
-    }
-
-    createNoteData() {
+    createNoteData=()=> {
        
             // var data = {
                 
@@ -77,7 +73,7 @@ class CreateNote extends Component {
             .then((response) => {
                 console.log('response===>',response.data);
                 console.log("properties",this.props)
-                
+                this.props.getAllNoteData()
              
 
                 // this.props.history.push('/register');

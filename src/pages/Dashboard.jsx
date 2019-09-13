@@ -2,15 +2,41 @@ import React, { Component } from 'react';
 import CreateNote from '../components/CreateNote';
 import PrimarySearchAppBar from '../components/Appbar';
 import GetAllNotes from '../components/GetAllNotes';
-import {getAllTrashedNotes} from '../Services/userServices';
-
+import { getAllTrashedNotes } from '../Services/userServices';
+import { getAllNotes } from '../Services/userServices'
+import GetAllTrashed from '../components/GetAllTrashed';
 class Dashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
             list: false,
-            isTrashed:[]
+            trashedNotes: [],
+            notesArray: [],
+            trashed: false,
+            archive:false,
+            reminder:false
         }
+    
+    }
+
+   getTrashedNotes = () => {
+        // this.setState({
+        //     trashed: true
+        // })
+        // console.log("value of trashed in dashboared==>"+this.state.trashed);
+        
+
+        getAllTrashedNotes()
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    trashedNotes: res.data,
+                    trashed: true
+                })
+            })
+            .catch(error => {
+                console.log(error.response)
+            })
     }
 
 
@@ -20,35 +46,71 @@ class Dashboard extends Component {
         })
     }
 
-//get all trashed notes
-   getAllTrashedNotes(){
+    //get all trashed notes
+    //    getAllTrashedNotes=()=>{
 
-    getAllTrashedNotes()
-    .then(res=> {
-    console.log(res);
-    this.setState({
-        isTrashed:res.data
-    })
-    })
-    .catch(error=>{
-        console.log(error.response.data)
-    })    
-       
-   }
+
+
+    //    }
+
+
+    //    getAllNoteData=(event)=>{
+    //     getAllNotes()
+    //     .then(res=> {
+    //     console.log(res);
+    //     this.setState({
+    //         notesArray:res.data
+    //     })
+    //     })
+    //     .catch(error=>{
+    //         console.log(error)
+    //     })    
+    // }
+
+    componentDidMount() {
+        this.getAllNoteData()
+
+    }
+
+
+
+    getAllNoteData = () => {
+        console.log("getAllNote from dashboard");
+
+        getAllNotes()
+            .then(res => {
+                console.log("===123==>", res.data);
+                this.setState({
+                    notesArray: res.data
+                })
+                console.log("after setstate in getallnoteData");
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+
 
     render() {
 
-        console.log("this is my dashboard render", this.state.list);
+        //console.log("this is my dashboard render", this.state.list);
 
         return (
             <div>
-                <PrimarySearchAppBar changeGrid={this.changeGrid} />
+                <PrimarySearchAppBar getTrashedNotes={this.getTrashedNotes} changeGrid={this.changeGrid} />
                 <div>
-                    <CreateNote />
+                    <CreateNote getAllNoteData={this.getAllNoteData} />
                 </div>
-                    <GetAllNotes layout={this.state.list} />
+                <div>
+                    {this.state.trashed == false
+                        ?
+                         <GetAllNotes getAllNoteData={this.getAllNoteData} notes={this.state.notesArray} layout={this.state.list} />
+                        :
+                         <GetAllTrashed getTrashedNotes={this.getTrashedNotes} trashedNotes={this.state.trashedNotes} layout={this.state.list} />
 
-
+                    }       </div>
             </div>
         );
     }

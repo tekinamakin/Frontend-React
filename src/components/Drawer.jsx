@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+
 const theme = createMuiTheme({
     overrides : {
         MuiDrawer : {
@@ -31,7 +32,8 @@ class PersistentDrawerLeft extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            open:false
+            open:false,
+        
         }
     }
     handleClose = () =>{
@@ -39,7 +41,15 @@ class PersistentDrawerLeft extends React.Component {
             open:false
         })
     }
+
+    
+
+    getTrashedNotes=()=>{
+      this.props.getTrashedNotes()
+    }
   render() {
+
+   
 
     return (<MuiThemeProvider theme={theme}>
         <div>
@@ -49,7 +59,9 @@ class PersistentDrawerLeft extends React.Component {
           open={this.props.open}
           onClose={this.handleClose}
           >
-            <List>
+            <List style={{borderBottomRightRadius: "50",
+borderTopRightRadius: "50"
+}}>
             {['Notes', 'Reminders'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>{index % 2 === 0 ? <img src={require('../assets/images/note.svg')} alt="note icon"
@@ -73,9 +85,9 @@ class PersistentDrawerLeft extends React.Component {
           <Divider />
           <List>
             {['Archive', 'Trash'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <img src={require('../assets/images/archive.svg')} alt="note icon"
-                                    style={{ marginRight: "50px" }} /> :<img src={require('../assets/images/trash.svg')} alt="note icon"
+              <ListItem button key={text} onClick={this.getTrashedNotes} >
+                <ListItemIcon >{index % 2 === 0 ? <img src={require('../assets/images/archive.svg')} alt="note icon"
+                                    style={{ marginRight: "50px" }} /> :<img  src={require('../assets/images/trash.svg')} alt="note icon"
                                     style={{ marginRight: "50px" }} ></img> }</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
