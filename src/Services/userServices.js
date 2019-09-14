@@ -81,6 +81,27 @@ export function getAllTrashedNotes(){
 
 }
 
+export function noteArchived(data){
+    console.log("token in trashNote frontend service"+token);
+    
+    return axios.post(baseUrl+'archive',data,{
+    headers:{
+    
+        "token":token
+    }
+    })
+}
+
+export function getAllArchived(){
+console.log("Inside of service getAllArchive react");
+
+return axios.get(baseUrl+"getArchivedNotes",{
+
+    headers:{
+        "token":token
+    }
+})
 
 
+}
 

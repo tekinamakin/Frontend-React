@@ -116,6 +116,7 @@ return (
             </Toolbar>
         </AppBar>
         <PersistentDrawerLeft
+            getAllArchived={this.props.getAllArchived}
            getTrashedNotes={this.props.getTrashedNotes}
             open={this.state.openDrawer}
         />

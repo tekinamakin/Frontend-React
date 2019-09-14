@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import DialogBox from './DialogBox'
 import ColorPalette from './ColorPalette';
 import { updateNote } from "../Services/userServices";
+import { noteArchived } from "../Services/userServices"
 import ReminderComponent from './ReminderComponent';
 class NoteCard extends Component {
     constructor(props) {
@@ -21,8 +22,8 @@ class NoteCard extends Component {
             description: props.noteData.description,
             noteData: props.getAllNoteData,
             reminder: props.noteData.reminder,
-            trashedNotesData:props.getTrashedNotes,
-            archive:false
+            trashedNotesData: props.getTrashedNotes,
+            archive: false
 
 
 
@@ -102,7 +103,7 @@ class NoteCard extends Component {
             noteID: this.props.noteData._id,
             title: this.state.title,
             description: this.state.description,
-            reminder:this.state.reminder
+            reminder: this.state.reminder
         }
         console.log("printing noteData before sending to updateNote", noteData)
         updateNote(noteData)
@@ -112,8 +113,8 @@ class NoteCard extends Component {
                     openDialog: false
                 })
                 this.props.getAllNoteData()
-                console.log("checking getallNote for reminders",res);
-                
+                console.log("checking getallNote for reminders", res);
+
 
             })
             .catch((err) => {
@@ -155,14 +156,33 @@ class NoteCard extends Component {
 
     }
 
-    // updateColor=()=>{
 
-    // }
+    noteArchived =()=>{
+        console.log(
+          "PRINTING NOTE ID IN NOTEARCHIVE HANDLER OF DIALOG"+this.props.note_id
+        );
+
+       var 	noteID ={ 
+     'noteID':this.props.noteData._id
+       }	
+       noteArchived(noteID)
+       .then((response) => {
+        this.props.getAllNoteData();
+         console.log('response===>',response);
+
+              console.log("note archived");
+
+
+                          })
+     .catch((err) => {
+         console.log('error===>',err);
+
+     });
+    }
+
 
 
     render() {
-
-
 
         let reminderChip = this.state.reminder
 
@@ -195,11 +215,11 @@ class NoteCard extends Component {
                     </CardContent>
                     <CardActions >
                         <div className="flex-container">
-                            <div ><ReminderComponent note_id={this.props.noteData._id} noteData={this.props.noteData}  /></div>
+                            <div ><ReminderComponent note_id={this.props.noteData._id} noteData={this.props.noteData} /></div>
                             <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
                             <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
                             <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
-                            <div><img  src={require("../assets/images/archive.svg")} alt="archive" /></div>
+                            <div><img onClick={this.noteArchived} src={require("../assets/images/archive.svg")} alt="archive" /></div>
                             <DialogBox onClick={this.openDialog} note_id={this.props.noteData._id}
                                 noteData={this.state.noteData} openD={this.state.open}
                             />
@@ -215,18 +235,19 @@ class NoteCard extends Component {
                             height: "auto"
                         }
                     }}>
-                    <DialogTitle>
-                        <InputBase
-                            name="title"
-                            style={{ width: "90%" }}
-                            multiline={true}
-                            defaultValue={this.state.title}
-                            className="EditTitle"
-                            placeholder="Title"
-                            onChange={this.handleOnChange} />
-                    </DialogTitle>
-                    <Divider />
-                    <DialogContent>
+                    <DialogContent style={{ background: this.state.color }}>
+                        <DialogTitle>
+                            <InputBase
+                                name="title"
+                                style={{ width: "90%" }}
+                                multiline={true}
+                                defaultValue={this.state.title}
+                                className="EditTitle"
+                                placeholder="Title"
+                                onChange={this.handleOnChange} />
+                        </DialogTitle>
+                        <Divider />
+
                         <InputBase
                             name="description"
                             style={{ width: "90%" }}
@@ -236,24 +257,25 @@ class NoteCard extends Component {
                             placeholder="Note"
                             onChange={this.handleOnChange} />
 
+
+                        <DialogActions>
+
+                            <div className="flex-container">
+                                <div ><img src={require("../assets/images/reminder.svg")} alt="reminder" /></div>
+                                <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
+                                <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
+                                <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
+                                <div><img src={require("../assets/images/archive.svg")} alt="archive" /></div>
+
+                                <DialogBox onClick={this.openDialog} note_id={this.props.noteData._id}
+                                    openD={this.state.open}
+                                />
+                                <div onClick={this.updateNote} style={{ marginLeft: "55%" }}>close</div>
+
+                            </div>
+
+                        </DialogActions>
                     </DialogContent>
-                    <DialogActions>
-
-                        <div className="flex-container">
-                            <div ><img src={require("../assets/images/reminder.svg")} alt="reminder" /></div>
-                            <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
-                            <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
-                            <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
-                            <div><img src={require("../assets/images/archive.svg")} alt="archive" /></div>
-
-                            <DialogBox onClick={this.openDialog} note_id={this.props.noteData._id}
-                                openD={this.state.open}
-                            />
-                            <div onClick={this.updateNote} style={{ marginLeft: "55%" }}>close</div>
-
-                        </div>
-
-                    </DialogActions>
                 </Dialog>
             </div>
         );

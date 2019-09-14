@@ -26,7 +26,7 @@ class GetAllNotes extends Component {
             console.log("========================>",note);
            
             return (
-                    <NoteCard getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note}/>
+                    <NoteCard noteArchived={this.props.noteArchived} getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note}/>
             )
         })
       
