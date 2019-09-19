@@ -18,14 +18,13 @@ class GetAllTrashed extends Component {
     
    
     render() {
-        const list=this.props.layout? "getAllNote" : "getAllNoteList"
+        const list=this.props.layout? "getAllNoteList" : "getAllNote"
 
         // console.log("DATA in STATE", this.props.trashedNotes)
 
         const datamap = this.props.trashedNotes.map((note)=>{
             console.log("========================>",note);
-           
-            return (
+                return (
                     <NoteCard getTrashedNotes={this.props.getTrashedNotes} layout={this.props.layout} key={note._id} noteData={note}/>
             )
         })

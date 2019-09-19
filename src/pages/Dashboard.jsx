@@ -3,7 +3,8 @@ import CreateNote from '../components/CreateNote';
 import PrimarySearchAppBar from '../components/Appbar';
 import GetAllNotes from '../components/GetAllNotes';
 import { getAllTrashedNotes } from '../Services/userServices';
-import { getAllNotes,getAllArchived } from '../Services/userServices'
+import { getAllNotes, getAllArchived,getAllReminder } from '../Services/userServices'
+import {DrawerLabelGet} from "../Services/userServices"
 import GetAllTrashed from '../components/GetAllTrashed'
 class Dashboard extends Component {
     constructor(props) {
@@ -13,48 +14,83 @@ class Dashboard extends Component {
             trashedNotes: [],
             notesArray: [],
             trashed: false,
-            archive:false,
-            reminder:false
+            archive: false,
+            
+            
         }
-    
+
     }
 
-    getAllArchived=()=>{
+    getAllReminder=()=>{
+        console.log("inside getAllReminder method in dashboard");
+        this.setState({
+            notesArray:[]
+        })
+        getAllReminder()
+        .then(response=>{
+            console.log("response data==>"+JSON.stringify(response.data.result));
+            
+            this.setState({
+                notesArray: response.data.result,
+                archive:false,
+                trashed:false
+            })
+        })
+        .catch(error => {
+            console.log("Error while getting reminder notes", error.response);
 
-console.log("inside getAllArchived method in dashboard");
-this.setState({
-    notesArray:[]
-})
-getAllArchived()
-.then(response=>{
-    console.log("Archive inside .then method",response.data);
+        })
+    }
+
+    getAllArchived = () => {
+
+        console.log("inside getAllArchived method in dashboard");
+        this.setState({
+            notesArray: []
+        })
+        getAllArchived()
+            .then(response => {
+                console.log("Archive inside .then method", response.data);
+
+
+                this.setState({
+                    notesArray: response.data,
+                    archive: true,
+                    trashed: false
+                })
+            })
+            .catch(error => {
+                console.log("Error while archiving notes", error.response);
+
+            })
+
+    }
+
+    DrawerLabels = () => {
+        DrawerLabelGet()
+          .then(res => {
+            this.setState({
+              labels: res.data.result
+            })
+            console.log("response in ==>"+JSON.stringify(res.data.result));
+            
+    
+          })
+          .catch(error => {
+            console.log("label error", error)
+          })
+      }
     
 
-    this.setState({
-        notesArray:response.data
-    })
-})
-.catch(error=>{
-    console.log("Error while archiving notes",error.response);
-    
-})
 
-} 
-
-
-   getTrashedNotes = () => {
-        // this.setState({
-        //     trashed: true
-        // })
-        // console.log("value of trashed in dashboared==>"+this.state.trashed);
-        
-
+    getTrashedNotes = () => {
         getAllTrashedNotes()
             .then(res => {
-                console.log(res.data,'in trash');
+                console.log(res.data, 'in trash');
                 this.setState({
                     trashedNotes: res.data,
-                    trashed: true
+                    trashed: true,
+                    archive: false
                 })
             })
             .catch(error => {
@@ -69,32 +105,12 @@ getAllArchived()
         })
     }
 
-    //get all trashed notes
-    //    getAllTrashedNotes=()=>{
 
-
-
-    //    }
-
-
-    //    getAllNoteData=(event)=>{
-    //     getAllNotes()
-    //     .then(res=> {
-    //     console.log(res);
-    //     this.setState({
-    //         notesArray:res.data
-    //     })
-    //     })
-    //     .catch(error=>{
-    //         console.log(error)
-    //     })    
-    // }
 
     componentDidMount() {
         this.getAllNoteData()
 
     }
-
 
 
     getAllNoteData = () => {
@@ -104,7 +120,8 @@ getAllArchived()
             .then(res => {
                 console.log("===123==>", res.data);
                 this.setState({
-                    notesArray: res.data
+                    notesArray: res.data,
+                    trashed:false
                 })
                 console.log("after setstate in getallnoteData");
 
@@ -114,34 +131,27 @@ getAllArchived()
             })
     }
 
+    render() {
 
-    
-  
-   
-   
+        //console.log("this is my dashboard render", this.state.list);
 
-
-render() {
-
-    //console.log("this is my dashboard render", this.state.list);
-
-    return (
-        <div>
-            <PrimarySearchAppBar getAllArchived={this.getAllArchived} getTrashedNotes={this.getTrashedNotes} changeGrid={this.changeGrid} />
+        return (
             <div>
-                <CreateNote getAllNoteData={this.getAllNoteData} />
-            </div>
-            <div>
-                {this.state.trashed === false
-                    ?
+                <PrimarySearchAppBar DrawerLabels={this.DrawerLabels}  getAllReminder={this.getAllReminder} getAllNoteData={this.getAllNoteData} getAllArchived={this.getAllArchived} getTrashedNotes={this.getTrashedNotes} changeGrid={this.changeGrid} />
+                <div>
+                    <CreateNote getAllNoteData={this.getAllNoteData} />
+                </div>
+                <div>
+                    {this.state.trashed === false
+                        ?
                         <GetAllNotes noteArchived={this.props.noteArchived} getAllNoteData={this.getAllNoteData} notes={this.state.notesArray} layout={this.state.list} />
-                    :
+                        :
                         <GetAllTrashed getTrashedNotes={this.getTrashedNotes} trashedNotes={this.state.trashedNotes} layout={this.state.list} />
 
-                }       </div>
-        </div>
-    );
-}
+                    }       </div>
+            </div>
+        );
+    }
 }
 
 export default Dashboard;

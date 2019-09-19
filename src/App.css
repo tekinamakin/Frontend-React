@@ -180,7 +180,15 @@
   width: 442px;
 }
 
+
 /*-------------------------------------Drawer----------------------------------------------------------*/
+
+.DrawerLabel{
+display: flex;
+/* flex-direction: row; */
+/* justify-content: space-; */
+}
+
 .DrawerNote {
   display: flex;
   /* margin-top:13px;
@@ -237,6 +245,15 @@
   margin-left: 10px;
   }
   
+  .EditLabelTool{
+    margin-left: 133px
+  }
+
+  .DialogMap{
+    display: flex;
+    justify-content: space-between;
+
+  }
 
 /*-------------------------------------Create Note-----------------------------------------------------*/
 .createnote-card {
@@ -246,12 +263,14 @@
   margin-top: 100px;
   margin-left: 338px;
   box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
   border-radius: 4px;
+  
 }
 
 .take-note-input {
-  color: rgb(129, 124, 124)
+  color: rgb(129, 124, 124);
+  width:-webkit-fill-available;
 }
 
 .closeButton {
@@ -356,7 +375,18 @@
   display: flex;
   flex-wrap: nowrap;
   /* background-color: DodgerBlue; */
+  opacity:0;
 }
+
+.flex-container:hover {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  /* background-color: DodgerBlue; */
+  opacity: 0.6;
+}
+
+
 
 .flex-container>div {
   /* background-color: #f1f1f1; */
@@ -371,3 +401,4 @@
   width: 20px;
 
 }
+/*-----------------------------------label dialog-------------------------------------------------*/

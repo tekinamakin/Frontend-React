@@ -21,7 +21,7 @@ class PrimarySearchAppBar extends React.Component {
             searchInput: '',
             listView: false,
             openDrawer: false,
-            
+            getAllNoteData:props.getAllNoteData
                        
         }
         this.searchInputHandler = this.searchInputHandler.bind(this)
@@ -53,9 +53,9 @@ class PrimarySearchAppBar extends React.Component {
 
     render() {
 
-        let viewIcon =GridIcon
+        let viewIcon =ListIcon
         if(this.state.listView){
-            viewIcon = ListIcon
+            viewIcon = GridIcon
         }
 return (    
     <div className="app-bar">
@@ -116,6 +116,9 @@ return (
             </Toolbar>
         </AppBar>
         <PersistentDrawerLeft
+            DrawerLabels={this.props.DrawerLabels}
+            getAllReminder={this.props.getAllReminder}
+            getAllNoteData={this.props.getAllNoteData}
             getAllArchived={this.props.getAllArchived}
            getTrashedNotes={this.props.getTrashedNotes}
             open={this.state.openDrawer}

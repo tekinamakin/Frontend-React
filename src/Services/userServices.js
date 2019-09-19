@@ -48,8 +48,7 @@ export function trashNote(data){
     })
 }
 
-export function 
-getAllNotes(){
+export function getAllNotes(){
     console.log("token===>"+token);
     
     return axios.get(baseUrl+'getAllNotes',{
@@ -105,3 +104,30 @@ return axios.get(baseUrl+"getArchivedNotes",{
 
 }
 
+export function getAllReminder(){
+return axios.get(baseUrl+"getAllReminder",{
+    headers:{
+        "token":token
+    }
+})
+
+}
+
+export function  DrawerLabelGet(){
+return axios.get(baseUrl+"getLabel",{
+    headers:{
+        "token":token
+    }
+})
+
+
+}
+
+export function CreateLabel(data){
+return axios.post(baseUrl+"createlabel",data,{
+    headers:{
+        "token":token
+    }
+})
+
+}

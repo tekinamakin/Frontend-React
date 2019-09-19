@@ -1,135 +1,28 @@
-// import React from 'react';
-
-// import Drawer from '@material-ui/core/Drawer';
-// import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
-
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
-
-// const theme = createMuiTheme({
-//     overrides : {
-//         MuiDrawer : {
-//             paper : {
-
-//             "top": "65px",
-//             flex: "1 0 auto",
-//             width: 225,
-//             zindex: 1200,
-//             display: "flex",
-//             outline: "none",
-//             "z-index": 1200,
-//             "overflow-y": "auto",
-
-//             }
-//         }
-//     }
-// })
-
-// class PersistentDrawerLeft extends React.Component {
-//     constructor(props){
-//         super(props);
-//         this.state={
-//             open:false,
-
-//         }
-//     }
-    // handleClose = () =>{
-    //     this.setState({
-    //         open:false
-    //     })
-    // }
-
-    // getAllArchived=()=>{
-    //   this.props.getAllArchived()
-    // }
-
-
-    // getTrashedNotes=()=>{
-    //   this.props.getTrashedNotes()
-    // }
-//   render() {
-
-
-
-//     return (<MuiThemeProvider theme={theme}>
-//         <div>
-//         <Drawer
-//           variant="persistent"
-//           anchor="left"
-//           open={this.props.open}
-//           onClose={this.handleClose}
-//           >
-//             <List style={{borderBottomRightRadius: "50",
-// borderTopRightRadius: "50"
-// }}>
-//             {['Notes', 'Reminders'].map((text, index) => (
-//               <ListItem button key={text}>
-//                 <ListItemIcon>{index % 2 === 0 ? <img src={require('../assets/images/note.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} /> :<img src={require('../assets/images/reminder.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} ></img> }</ListItemIcon>
-//                 <ListItemText primary={text} />
-//               </ListItem>
-//             ))}
-//           </List>   
-//           <Divider />
-//           <List>
-//             {['Labels', 'Edit Labels'].map((text, index) => (
-//               <ListItem button key={text}>
-//                 <ListItemIcon>{index % 2 === 0 ? <img src={require('../assets/images/label.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} /> :<img src={require('../assets/images/edit.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} ></img> }</ListItemIcon>
-//                 <ListItemText primary={text} />
-//               </ListItem>
-//             ))}
-//           </List>   
-//           <Divider />
-//           <List>
-//             {['Archive', 'Trash'].map((text, index) => (
-//               <ListItem button key={text}   >
-//                 <ListItemIcon >{index % 2 === 0 ? <img onClick={this.getAllArchived}src={require('../assets/images/archive.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} /> :<img onClick={this.getTrashedNotes} src={require('../assets/images/trash.svg')} alt="note icon"
-//                                     style={{ marginRight: "50px" }} ></img> }</ListItemIcon>
-//                 <ListItemText primary={text} />
-//               </ListItem>
-//             ))}
-//           </List>   
-
-//         </Drawer>
-
-//       </div>
-//       </MuiThemeProvider>
-//     );
-//   }
-// }
-
-// // PersistentDrawerLeft.propTypes = {
-// //   classes: PropTypes.object.isRequired,
-// //   theme: PropTypes.object.isRequired,
-// // };
-
-// export default PersistentDrawerLeft
-
-
 import React, { Component } from 'react'
-import { Drawer, Divider, Dialog, DialogContent, DialogTitle, InputBase } from '@material-ui/core'
+import { Drawer, Divider, Dialog, DialogContent, DialogTitle, InputBase, ListItem, ListItemIcon, DialogActions } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles'
 import note from "../assets/images/note.svg"
 import labeledt from "../assets/images/edit.svg"
 import reminder from "../assets/images/reminder.svg"
 import archive from "../assets/images/archive.svg"
-// import labelIcon from "../assets/images/reminder.svg"
+
 import AddIcon from '@material-ui/icons/Add';
 
 import trash from "../assets/images/trash.svg"
 import "../App.css"
-// import NoteService from '../services/NoteService';
+import {DrawerLabelGet} from "../Services/userServices"
+import DrawerLabels from './DrawerLabels';
+import Label from "@material-ui/icons/Label";
+import Edit from "@material-ui/icons/Edit";
+import Delete from "@material-ui/icons/Delete"
+import {CreateLabel} from "../Services/userServices"
+import DialogLabelEdit from './DialogLabelEdit';
 
 
-// const DrawerLabelGet = new NoteService().getLabels
+
+
+
 
 
 const myDrawerTheme = createMuiTheme({
@@ -148,19 +41,22 @@ export class PersistentDrawerLeft extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     // labels: [],
-      open: false
+      label:props.DrawerLabels,
+      labels: [],
+      open: false,
+      Dopen: false,
+      
 
     }
   }
 
-  // componentDidMount() {
-  //   this.DrawerLabels()
-  //   this.setState({
-  //     labels: this.props.labels
-  //   })
+  componentDidMount() {
+    this.DrawerLabels()
+    this.setState({
+      labels: this.props.labels
+    })
 
-  // }
+  }
 
 
 
@@ -181,29 +77,35 @@ export class PersistentDrawerLeft extends Component {
   //   this.props.ReminderGet()
   // }
 
-  // DrawerLabels = () => {
-  //   DrawerLabelGet()
-  //     .then(res => {
-  //       this.setState({
-  //         labels: res.data
-  //       })
+  DrawerLabels = () => {
+    DrawerLabelGet()
+      .then(res => {
+        this.setState({
+          labels: res.data.result
+        })
+        console.log("response in ==>"+JSON.stringify(res.data.result));
+        
 
-  //     })
-  //     .catch(error => {
-  //       console.log("label error", error.response.data)
-  //     })
-  // }
+      })
+      .catch(error => {
+        console.log("label error", error)
+      })
+  }
 
-  // handleDialogOpen = () => {
-  //   this.setState({
-  //     Dopen: true
-  //   })
-  // }
+  handleDialogOpen = () => {
+    this.setState({
+      Dopen: true
+    })
+  }
 
   handleClose = () =>{
     this.setState({
         open:false
     })
+}
+
+getAllNoteData=()=>{
+  this.props.getAllNoteData()
 }
 
 getAllArchived=()=>{
@@ -215,31 +117,76 @@ getTrashedNotes=()=>{
   this.props.getTrashedNotes()
 }
 
+getAllReminder=()=>{
+  this.props.getAllReminder()
+}
+
+createLabel=()=>{
+ let obj={
+   "label":this.state.label,
+
+ }
+
+CreateLabel(obj)
+.then(res=>{
+ console.log("Printing newly created label",res);
+ this.DrawerLabels()
+ 
+})
+.catch(error=>{
+  console.log("Error in creating a label",error);
+  
+})
+
+}
+
+
+handleDialogClose=()=>{
+  this.setState({
+    Dopen:false
+  })
+}
+
+handleOnChange=(event)=>{
+  this.setState({
+    [event.target.name]:event.target.value
+  })
+  console.log("======>",this.state.labelName);
+  
+}
+
 
 
   render() {
+    console.log("checking labels===================>",this.state.label);
+    if(this.state.labels){
+    var DrawerLabel = this.state.labels.map((label) => {
+      return <DrawerLabels className="DrawerNote" key={label._id} label={label} />
 
-    // const DrawerLabel = this.state.labels.map((label) => {
-    //   return <div className="DrawerNote" key={label.id}><img src={labelIcon} alt="labelsvg" /><p>{label.name}</p></div>
+    })
+    }
+    if(this.state.labels){
+    var DialogLabel = this.state.labels.map((label) => {
+      return (
+        <DialogLabelEdit className="DialogLabelEdit"  key={label._id} label={label} />
+      )
+    })
+  }
 
-    // })
+  
 
-    // const DialogLabel = this.state.labels.map((label) => {
-    //   return <div key={label.id}><p>{label.name}</p></div>
-    // })
-
-
+  
 
     return (
       <ThemeProvider theme={myDrawerTheme}>
         <div>
-          {/* <Button onClick={this.leftDfun}>Open Left</Button> */}
+          
           <Drawer
             open={this.props.open}
             anchor="left"
             variant="persistent"
           >
-            <div className="DrawerNote" id="notes" >
+            <div className="DrawerNote" id="notes" onClick={this.getAllNoteData} >
               <img src={note} alt="notesvg" />
               <p>Notes</p>
             </div >
@@ -247,7 +194,7 @@ getTrashedNotes=()=>{
 
 
 
-            <div className="DrawerNote" id="reminders" >
+            <div className="DrawerNote" id="reminders" onClick={this.getAllReminder} >
               <img src={reminder} alt="remindersvg" />
               <p >Reminders</p>
             </div>
@@ -259,7 +206,7 @@ getTrashedNotes=()=>{
             </div>
 
             <div >
-              {/* {DrawerLabel} */}
+               {DrawerLabel} 
             </div>
 
             <div className="DrawerNote">
@@ -276,39 +223,39 @@ getTrashedNotes=()=>{
             </div>
 
             
-            <div className="DrawerNote" id="trash"onClick={this.getTrashedNotes}>
+            <div className="DrawerNote" id="trash"onClick={this.getTrashedNotes} style={{marginBottom:"70px"}}>
               <img src={trash} alt="labelsvg" />
 
               <p>Trash</p>
             </div>
 
           </Drawer>
-
         </div>
         <div>
-          <Dialog
+          <Dialog 
             open={this.state.Dopen}
             PaperProps={{
               style: {
                 background: this.state.color,
-                width: "20%",
+                width: "30%",
                 height: "auto"
               }
             }}>
             <DialogTitle>
               <div>
                 <InputBase
-                  name="text"
+                  name="label"
                   onChange={this.handleOnChange}
                   placeholder="create new label"
-                  // style={{ wid }}
+                  style={{ width:"85%" }}
                 />
-                <span><AddIcon onClick={this.CreateLabel} /></span>
+                <span><AddIcon  onClick={this.createLabel} /></span>
               </div>
             </DialogTitle>
             <DialogContent>
-              {/* {DialogLabel} */}
+              {DialogLabel}
             </DialogContent>
+            <DialogActions><p onClick={this.handleDialogClose}>Done</p></DialogActions>
 
           </Dialog>
         </div>

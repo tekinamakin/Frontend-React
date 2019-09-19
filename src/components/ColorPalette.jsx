@@ -37,11 +37,6 @@ class ColorPalette extends Component {
     }
     changeColor=(e)=>{
 
-        // this.setState({
-
-        //     color:e.target.id
-        // })
-
         this.props.noteColor(e.target.id);
         this.handleMenuClose()
         

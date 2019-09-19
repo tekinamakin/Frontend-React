@@ -3,39 +3,35 @@ import React, { Component } from 'react';
 
 import NoteCard from './NoteCard';
 import Grid from '@material-ui/core/Grid';
- //const noteService=new userServices().getAllNotes
+//const noteService=new userServices().getAllNotes
 class GetAllNotes extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        
-        this.state={
+
+        this.state = {
+
+            notes: props.notes
             
-            notes:props.notes,
-               
+
         }
     }
-   
-    
-   
+
     render() {
-        const list=this.props.layout? "getAllNote" : "getAllNoteList"
+        const list = this.props.layout ? "getAllNoteList" : "getAllNote"
 
         console.log("DATA in STATE", this.props.notes)
-
-        const datamap = this.props.notes.map(note=>{
-            console.log("========================>",note);
-           
-            return (
-                    <NoteCard noteArchived={this.props.noteArchived} getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note}/>
-            )
-        })
-      
-        return (
-            <Grid container className={list} style={{width:"70%", marginLeft:"15%"}}>
-                {datamap}
-                </Grid>
-                
+        if(this.state.notes){
+        var datamap = this.props.notes.map((note) => {
+          
+            return <NoteCard  noteArchived={this.props.noteArchived} getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note} />
             
+        })
+    }
+
+        return (
+            <Grid container className={list} style={{ width: "70%", marginLeft: "15%" }}>
+                {datamap}
+            </Grid>
         );
     }
 }

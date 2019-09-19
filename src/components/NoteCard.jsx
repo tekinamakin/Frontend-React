@@ -14,7 +14,7 @@ class NoteCard extends Component {
             openDialog: false,
             openD: "",
             open: true,
-            dialogOpen: false,
+           // dialogOpen: false,
             color: props.noteData.color,
             noteCard: "block",
             noteCardPopUp: "none",
@@ -69,19 +69,12 @@ class NoteCard extends Component {
     handleNotePopUp = event => {
 
         this.setState({
-            // dialogOpen:true,
-            // noteCard: "none",
-            // noteCardPopUp: "block"
             openDialog: true
-
         })
-
     }
 
     handleNotePopUpClose = event => {
         this.setState({
-            // noteCard: "block",
-            // noteCardPopUp: "none"
             openDialog: false
         })
 
@@ -103,7 +96,7 @@ class NoteCard extends Component {
             noteID: this.props.noteData._id,
             title: this.state.title,
             description: this.state.description,
-            reminder: this.state.reminder
+            reminder: this.props.noteData.reminder
         }
         console.log("printing noteData before sending to updateNote", noteData)
         updateNote(noteData)
@@ -128,6 +121,7 @@ class NoteCard extends Component {
         this.setState({
             reminder: data
         })
+        
         console.log(this.state.reminder);
 
     }
@@ -157,27 +151,27 @@ class NoteCard extends Component {
     }
 
 
-    noteArchived =()=>{
+    noteArchived = () => {
         console.log(
-          "PRINTING NOTE ID IN NOTEARCHIVE HANDLER OF DIALOG"+this.props.note_id
+            "PRINTING NOTE ID IN NOTEARCHIVE HANDLER OF DIALOG" + this.props.note_id
         );
 
-       var 	noteID ={ 
-     'noteID':this.props.noteData._id
-       }	
-       noteArchived(noteID)
-       .then((response) => {
-        this.props.getAllNoteData();
-         console.log('response===>',response);
+        var noteID = {
+            'noteID': this.props.noteData._id
+        }
+        noteArchived(noteID)
+            .then((response) => {
+                this.props.getAllNoteData();
+                console.log('response===>', response);
 
-              console.log("note archived");
+                console.log("note archived");
 
 
-                          })
-     .catch((err) => {
-         console.log('error===>',err);
+            })
+            .catch((err) => {
+                console.log('error===>', err);
 
-     });
+            });
     }
 
 
@@ -195,7 +189,7 @@ class NoteCard extends Component {
 
 
         const noteCardShadow = "3px 5px 10px grey"
-        const layout = this.props.layout ? "noteCard" : "noteCardList"
+        const layout = this.props.layout ? "noteCardList" : "noteCard"
         let displayNote = "block"
         let displayDialog = "none"
         if (this.state.openDialog) {
@@ -206,16 +200,15 @@ class NoteCard extends Component {
 
         return (
             <div>
-                <Card className={layout} style={{ background: this.state.color, display: displayNote, boxShadow: noteCardShadow }}>
+                <Card  className={layout} style={{ background: this.state.color, display: displayNote, boxShadow: noteCardShadow }}>
                     <CardContent className="cardContent" onClick={this.handleNotePopUp}>
-
                         <div className='title'>{this.props.noteData.title}</div>
                         <div className='description'>{this.props.noteData.description}</div>
                         {reminderChip}
                     </CardContent>
                     <CardActions >
                         <div className="flex-container">
-                            <div ><ReminderComponent note_id={this.props.noteData._id} noteData={this.props.noteData} /></div>
+                            <div ><ReminderComponent  note_id={this.props.noteData._id} noteData={this.state.noteData} /></div>
                             <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
                             <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
                             <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
@@ -225,9 +218,7 @@ class NoteCard extends Component {
                             />
                         </div>
                     </CardActions>
-
                 </Card>
-
                 <Dialog open={this.state.openDialog} className="noteCardPopUp" style={{ display: displayDialog }}
                     PaperProps={{
                         style: {
@@ -247,7 +238,6 @@ class NoteCard extends Component {
                                 onChange={this.handleOnChange} />
                         </DialogTitle>
                         <Divider />
-
                         <InputBase
                             name="description"
                             style={{ width: "90%" }}
@@ -256,32 +246,23 @@ class NoteCard extends Component {
                             className="EditDescription"
                             placeholder="Note"
                             onChange={this.handleOnChange} />
-
-
                         <DialogActions>
-
                             <div className="flex-container">
                                 <div ><img src={require("../assets/images/reminder.svg")} alt="reminder" /></div>
                                 <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
                                 <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
                                 <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
                                 <div><img src={require("../assets/images/archive.svg")} alt="archive" /></div>
-
                                 <DialogBox onClick={this.openDialog} note_id={this.props.noteData._id}
                                     openD={this.state.open}
                                 />
                                 <div onClick={this.updateNote} style={{ marginLeft: "55%" }}>close</div>
-
                             </div>
-
                         </DialogActions>
                     </DialogContent>
                 </Dialog>
             </div>
         );
-
     }
-
 }
-
 export default NoteCard;
