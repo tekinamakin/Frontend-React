@@ -22,8 +22,10 @@ class GetAllNotes extends Component {
         console.log("DATA in STATE", this.props.notes)
         if(this.state.notes){
         var datamap = this.props.notes.map((note) => {
+            console.log("value of reminder==>"+JSON.stringify(note));
+            
           
-            return <NoteCard  noteArchived={this.props.noteArchived} getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note} />
+            return <NoteCard getAllReminder={this.props.getAllReminder} noteArchived={this.props.noteArchived} getAllNoteData={this.props.getAllNoteData} layout={this.props.layout} key={note._id} noteData={note} />
             
         })
     }

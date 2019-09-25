@@ -3,8 +3,8 @@ import CreateNote from '../components/CreateNote';
 import PrimarySearchAppBar from '../components/Appbar';
 import GetAllNotes from '../components/GetAllNotes';
 import { getAllTrashedNotes } from '../Services/userServices';
-import { getAllNotes, getAllArchived,getAllReminder } from '../Services/userServices'
-import {DrawerLabelGet} from "../Services/userServices"
+import { getAllNotes, getAllArchived, getAllReminder } from '../Services/userServices'
+import { DrawerLabelGet } from "../Services/userServices"
 import GetAllTrashed from '../components/GetAllTrashed'
 class Dashboard extends Component {
     constructor(props) {
@@ -15,33 +15,35 @@ class Dashboard extends Component {
             notesArray: [],
             trashed: false,
             archive: false,
-            
-            
-        }
 
+
+        }
     }
 
-    getAllReminder=()=>{
+
+    //==========get all remninder notes==========================================================//
+    getAllReminder = () => {
         console.log("inside getAllReminder method in dashboard");
         this.setState({
-            notesArray:[]
+            notesArray: []
         })
         getAllReminder()
-        .then(response=>{
-            console.log("response data==>"+JSON.stringify(response.data.result));
-            
-            this.setState({
-                notesArray: response.data.result,
-                archive:false,
-                trashed:false
-            })
-        })
-        .catch(error => {
-            console.log("Error while getting reminder notes", error.response);
+            .then(response => {
+                console.log("response data==>" + JSON.stringify(response.data.result));
 
-        })
+                this.setState({
+                    notesArray: response.data.result,
+                    archive: false,
+                    trashed: false
+                })
+            })
+            .catch(error => {
+                console.log("Error while getting reminder notes", error.response);
+
+            })
     }
 
+    //==========get all archived notes==========================================================//    
     getAllArchived = () => {
 
         console.log("inside getAllArchived method in dashboard");
@@ -66,23 +68,25 @@ class Dashboard extends Component {
 
     }
 
+    //==========get all labels on drawer ==========================================================//      
     DrawerLabels = () => {
         DrawerLabelGet()
-          .then(res => {
-            this.setState({
-              labels: res.data.result
+            .then(res => {
+                this.setState({
+                    labels: res.data.result
+                })
+                console.log("response in ==>" + JSON.stringify(res.data.result));
+
+
             })
-            console.log("response in ==>"+JSON.stringify(res.data.result));
-            
-    
-          })
-          .catch(error => {
-            console.log("label error", error)
-          })
-      }
-    
+            .catch(error => {
+                console.log("label error", error)
+            })
+    }
 
 
+
+    //==========get all trashed notes ==========================================================//  
     getTrashedNotes = () => {
         getAllTrashedNotes()
             .then(res => {
@@ -121,9 +125,10 @@ class Dashboard extends Component {
                 console.log("===123==>", res.data);
                 this.setState({
                     notesArray: res.data,
-                    trashed:false
+                    trashed: false
                 })
-                console.log("after setstate in getallnoteData");
+                console.log("after setstate in getallnoteData" + JSON.stringify(this.state.notesArray));
+
 
             })
             .catch(error => {
@@ -137,7 +142,7 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <PrimarySearchAppBar DrawerLabels={this.DrawerLabels}  getAllReminder={this.getAllReminder} getAllNoteData={this.getAllNoteData} getAllArchived={this.getAllArchived} getTrashedNotes={this.getTrashedNotes} changeGrid={this.changeGrid} />
+                <PrimarySearchAppBar DrawerLabels={this.DrawerLabels} getAllReminder={this.getAllReminder} getAllNoteData={this.getAllNoteData} getAllArchived={this.getAllArchived} getTrashedNotes={this.getTrashedNotes} changeGrid={this.changeGrid} />
                 <div>
                     <CreateNote getAllNoteData={this.getAllNoteData} />
                 </div>

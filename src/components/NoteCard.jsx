@@ -14,7 +14,7 @@ class NoteCard extends Component {
             openDialog: false,
             openD: "",
             open: true,
-           // dialogOpen: false,
+            // dialogOpen: false,
             color: props.noteData.color,
             noteCard: "block",
             noteCardPopUp: "none",
@@ -118,11 +118,31 @@ class NoteCard extends Component {
     }
 
     reminderChange = (data) => {
+        console.log("printing data insdie reminderchange", data.reminder);
+        var reminder = data.reminder
         this.setState({
             reminder: data
         })
-        
+
         console.log(this.state.reminder);
+
+        let reminderData = {
+            "noteID": this.props.noteData._id,
+            "reminder": reminder
+        }
+        console.log("reminder data noteID", JSON.stringify(reminderData))
+        updateNote(reminderData)
+            .then(res => {
+                console.log("Inside reminder updateNote function", this.props.noteData);
+                console.log("response from reminderUpdate==>", res.data);
+                this.props.noteData()
+                this.setState({
+                    menuopen: false
+                })
+            })
+            .catch(error => {
+                console.log("Error occured during updating reminder", error);
+            })
 
     }
 
@@ -176,16 +196,21 @@ class NoteCard extends Component {
 
 
 
+
     render() {
+        console.log("noteData in notecard", this.props.getAllNoteData);
+
 
         let reminderChip = this.state.reminder
 
-        if (reminderChip != null) {
+        if (reminderChip !== null) {
             reminderChip = <Chip
                 style={{ marginRight: 30 }}
                 label={this.state.reminder}
                 onDelete={this.deleteReminder} />
         }
+
+
 
 
         const noteCardShadow = "3px 5px 10px grey"
@@ -200,7 +225,7 @@ class NoteCard extends Component {
 
         return (
             <div>
-                <Card  className={layout} style={{ background: this.state.color, display: displayNote, boxShadow: noteCardShadow }}>
+                <Card className={layout} style={{ background: this.state.color, display: displayNote, boxShadow: noteCardShadow }}>
                     <CardContent className="cardContent" onClick={this.handleNotePopUp}>
                         <div className='title'>{this.props.noteData.title}</div>
                         <div className='description'>{this.props.noteData.description}</div>
@@ -208,7 +233,7 @@ class NoteCard extends Component {
                     </CardContent>
                     <CardActions >
                         <div className="flex-container">
-                            <div ><ReminderComponent  note_id={this.props.noteData._id} noteData={this.state.noteData} /></div>
+                            <div ><ReminderComponent reminder={this.reminderChange} note_id={this.props.noteData._id} noteData={this.state.noteData} /></div>
                             <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
                             <div><ColorPalette note_id={this.props.noteData._id} noteColor={this.noteColor} /></div>
                             <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>

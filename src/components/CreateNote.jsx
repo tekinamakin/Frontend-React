@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import { CardContent, InputBase, CardActions, Button } from '@material-ui/core';
 import { createNote } from "../Services/userServices";
-import DialogBox from './DialogBox'
+import DialogBox from './DialogBox';
+import ColorPalette from './ColorPalette';
+
+
 class CreateNote extends Component {
     constructor(props) {
         super(props);
@@ -126,7 +129,8 @@ class CreateNote extends Component {
                         <div className="flex-container">
                             <div ><img src={require("../assets/images/reminder.svg")} alt="reminder" /></div>
                             <div ><img src={require("../assets/images/collaborator.svg")} alt="collab" /></div>
-                            <div><img src={require("../assets/images/colorPallete.svg")} alt="colorPallete" /></div>
+                            {/* <div><img src={require("../assets/images/colorPallete.svg")} alt="colorPallete" /></div> */}
+                            <ColorPalette />
                             <div><img src={require('../assets/images/addimage.svg')} alt="addImage" /></div>
                             <div><img src={require("../assets/images/archive.svg")} alt="archive" /></div>
                             <DialogBox onClick={this.openDialog}

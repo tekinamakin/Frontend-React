@@ -23,7 +23,6 @@ class App extends Component {
         <Router>
           <Route path='/registration' component={Registration}></Route>
           <Route path='/login' component={Login}></Route>
-         
           <Route path='/drawer' component={PersistentDrawerLeft}></Route>
           <Route path='/createnote' component={CreateNote}></Route>
           <Route path='/getAllNotes' component={GetAllNotes}></Route>

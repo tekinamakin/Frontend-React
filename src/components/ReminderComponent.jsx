@@ -9,6 +9,7 @@ class ReminderComponent extends Component {
 
             menuOpen: false,
             anchorEl: null,
+            reminder: props.reminder
         }
     }
 
@@ -43,29 +44,30 @@ class ReminderComponent extends Component {
 
         }
 
-
-        console.log("============>", this.state.title);
-
         let reminderData = {
 
-            'noteID': this.props.note_id,
-            "reminder": today.toJSON(),
+            // 'noteID': this.props.note_id,
+            "reminder": today.toJSON()
 
         }
 
-        updateNote(reminderData)
-            .then(res => {
-                
-                console.log("response from reminderUpdate==>", res.data);
-                this.props.noteData()
-                this.setState({
-                    menuopen: false
-                })
-            })
-            .catch(error => {
-                console.log("Error occured during updating reminder", error);
-            })
+        this.props.reminder(reminderData)
+        //this.props.reminder(reminderData)
+
+        //  updateNote(reminderData)
+        //     .then(res => {
+        //         console.log("Inside reminder updateNote function", this.props.noteData);
+        //         console.log("response from reminderUpdate==>", res.data);
+        //         this.props.noteData()
+        //         this.setState({
+        //             menuopen: false
+        //         })
+        //     })
+        //     .catch(error => {
+        //         console.log("Error occured during updating reminder", error);
+        //     })
     }
+
 
 
     render() {
